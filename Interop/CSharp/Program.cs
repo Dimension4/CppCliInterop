@@ -16,7 +16,7 @@ namespace CSharp
         static void Main(string[] args)
         {
             pluginMain();
-            
+
             ManagedApi.SayHello();
 
             ManagedApi.Greet("Peter Griffin");

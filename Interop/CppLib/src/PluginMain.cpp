@@ -24,7 +24,7 @@ void pluginMain()
     Greet::bind([](auto const& str) { std::cout << "Hello " << str << "!\n"; });
     SayGoodbye::bind([]() { std::cout << "Goodbye!\n"; });
     Add::bind([](auto a, auto b) { return a + b; });
-    
+
     Accumulator accu;
     Accumulate::bind([accu](auto x) mutable { return accu.add(x); });
 }
