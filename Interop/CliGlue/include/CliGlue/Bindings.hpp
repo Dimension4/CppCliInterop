@@ -1,12 +1,20 @@
 ﻿#pragma once
 
-#include <CliGlue/StaticFunctionBinding.hpp>
+#include "GlueApi.hpp"
+#include "UnmanagedFunctionBinding.hpp"
 
-namespace Glue::Bindings
-{
-	using SayHello = UnmanagedFunctionBinding<0, void()>;
-	using Greet = UnmanagedFunctionBinding<1, void(std::string const&)>;
-	using SayGoodbye = UnmanagedFunctionBinding<2, void()>;
-	using Add = UnmanagedFunctionBinding<3, int(int, int)>;
-	using Accumulate = UnmanagedFunctionBinding<4, int(int)>;
-}
+#include <string>
+
+#define CREATE_BINDING(name, signature) \
+    using name = UnmanagedFunctionBinding<__LINE__, signature>
+    
+ namespace Glue::Bindings
+ {
+     CREATE_BINDING(SayHello, void());
+     CREATE_BINDING(Greet, void(std::string const&));
+     CREATE_BINDING(SayGoodbye, void());
+     CREATE_BINDING(Add, int(int, int));
+     CREATE_BINDING(Accumulate, int(int));
+ }
+
+#undef CREATE_BINDING

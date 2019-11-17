@@ -82,18 +82,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\CliGlue\Bindings.hpp" />
-    <ClInclude Include="include\CliGlue\Callbacks.hpp" />
-    <ClInclude Include="include\CliGlue\DelegateBinder.hpp" />
-    <ClInclude Include="include\CliGlue\FunctionCache.hpp" />
     <ClInclude Include="include\CliGlue\GlueApi.hpp" />
-    <ClInclude Include="include\CliGlue\StaticFunctionBinding.hpp" />
-    <ClInclude Include="include\CliGlue\TypeTraits.hpp" />
+    <ClInclude Include="include\CliGlue\UnmanagedFunctionBinding.hpp" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="src\Callbacks.cpp" />
-    <ClCompile Include="src\DelegateBinder.cpp" />
+    <ClCompile Include="src\Bindings.cpp" />
+    <ClCompile Include="src\ManagedApi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

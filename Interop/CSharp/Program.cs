@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Glue;
 
 namespace CSharp
 {
@@ -16,14 +17,18 @@ namespace CSharp
         {
             pluginMain();
             
-            Glue.Callbacks.SayHello();
-            Glue.Callbacks.SayHello();
-            Glue.Callbacks.SayHello();
-            Console.WriteLine($"SomeBinaryFunction: {Glue.Callbacks.SomeBinaryFunction(1, 2)}");
-            Console.WriteLine($"SomeBinaryFunction: {Glue.Callbacks.SomeBinaryFunction(10, 20)}");
-            Console.WriteLine($"SomeBinaryFunction: {Glue.Callbacks.SomeBinaryFunction(100, 200)}");
-            Glue.Callbacks.SomeUnaryFunction("This is a test!");
-            Glue.Callbacks.SomeUnaryFunction("Wow!");
+            ManagedApi.SayHello();
+
+            ManagedApi.Greet("Peter Griffin");
+
+            Console.WriteLine($"Add(1, 1): {ManagedApi.Add(1, 1)}");
+            Console.WriteLine($"Add(10, 4): {ManagedApi.Add(10, 4)}");
+
+            Console.WriteLine($"Accumulating: {ManagedApi.Accumulate(1)}");
+            Console.WriteLine($"Accumulating: {ManagedApi.Accumulate(1)}");
+            Console.WriteLine($"Accumulating: {ManagedApi.Accumulate(1)}");
+
+            ManagedApi.SayGoodbye();
 
             Console.ReadKey();
         }

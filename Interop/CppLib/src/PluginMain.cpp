@@ -1,9 +1,9 @@
 ﻿#include <CppLib/PluginMain.hpp>
-#include <CliGlue/Callbacks.hpp>
+#include <CliGlue/Bindings.hpp>
 
 #include <iostream>
 
-struct Aggregator
+struct Accumulator
 {
     int total = 0;
 
@@ -15,22 +15,16 @@ struct Aggregator
     }
 };
 
+
 void pluginMain()
 {
-    Glue::registerSayHello([counter = 0]() mutable
-    {
-        std::cout << "Hello for the " << counter++ << " time!\n";
-    });
+    using namespace Glue::Bindings;
 
-    Aggregator aggregator;
-
-    Glue::registerSomeBinaryFunction([aggregator](int x, int y) mutable
-    {
-        return aggregator.add(x, y);
-    });
-
-    Glue::registerSomeUnaryFunction([](std::string const& x) mutable
-    {
-        std::cout << x << "\n";
-    });
+    SayHello::bind([]() { std::cout << "Hello!\n"; });
+    Greet::bind([](auto const& str) { std::cout << "Hello " << str << "!\n"; });
+    SayGoodbye::bind([]() { std::cout << "Goodbye!\n"; });
+    Add::bind([](auto a, auto b) { return a + b; });
+    
+    Accumulator accu;
+    Accumulate::bind([accu](auto x) mutable { return accu.add(x); });
 }
