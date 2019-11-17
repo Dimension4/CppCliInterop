@@ -1,9 +1,9 @@
 ﻿#include <CliGlue/Callbacks.hpp>
+#include <CliGlue/TypeTraits.hpp>
+#include <CliGlue/Bindings.hpp>
+
 #include <msclr/marshal_cppstd.h>
 
-#include <string_view>
-
-#define nameof(id) std::string_view(#id)
 
 namespace Glue
 {
@@ -12,21 +12,35 @@ namespace Glue
     public:
         static void SayHello()
         {
-            auto& func = Internal::getFunction<void>(nameof(SayHello));
-            func();
+			Bindings::SayHello::tryInvoke();
         }
 
-        static int SomeBinaryFunction(int x, int y)
+        static int Add(int x, int y)
         {
-            auto& func = Internal::getFunction<int, int, int>(nameof(SomeBinaryFunction));
-            return func(x, y);
+			return Bindings::Add::tryInvoke(x, y).value_or(-1);
         }
 
-        static void SomeUnaryFunction(System::String^ x)
+        static void Greet(System::String^ name)
         {
-            auto& func = Internal::getFunction<void, std::string>(nameof(SomeUnaryFunction));
-            func(msclr::interop::marshal_as<std::string>(x));
+			Bindings::Greet::tryInvoke(
+				msclr::interop::marshal_as<std::string>(name)
+			);
         }
+
+		static int Accumulate(int x)
+		{
+			using Accumulator = Bindings::Accumulate;
+
+			if (!Accumulator::isBound())
+				throw gcnew System::InvalidOperationException("No accumulator bound");
+
+			return Accumulator::invoke(x);
+		}
+
+		static int Add(int x, int y)
+		{
+			return Bindings::Add::tryInvoke(x, y).value_or(-1);
+		}
     };
 
 #pragma managed(push, off)

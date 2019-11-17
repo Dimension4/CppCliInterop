@@ -81,10 +81,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\CliGlue\Bindings.hpp" />
     <ClInclude Include="include\CliGlue\Callbacks.hpp" />
     <ClInclude Include="include\CliGlue\DelegateBinder.hpp" />
     <ClInclude Include="include\CliGlue\FunctionCache.hpp" />
     <ClInclude Include="include\CliGlue\GlueApi.hpp" />
+    <ClInclude Include="include\CliGlue\StaticFunctionBinding.hpp" />
+    <ClInclude Include="include\CliGlue\TypeTraits.hpp" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
