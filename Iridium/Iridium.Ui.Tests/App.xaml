@@ -1,0 +1,8 @@
+﻿<Application x:Class="Iridium.Ui.Tests.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Iridium.Ui.Tests">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

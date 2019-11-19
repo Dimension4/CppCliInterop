@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iridium.Ui", "Iridium.Ui\Iridium.Ui.csproj", "{C5EB351A-C6DB-4552-80E2-57225D37A435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iridium.Ui.Tests", "Iridium.Ui.Tests\Iridium.Ui.Tests.csproj", "{AD65BAB8-F07F-4377-B964-993CA0741EE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5EB351A-C6DB-4552-80E2-57225D37A435}.Debug|x64.ActiveCfg = Debug|x64
+		{C5EB351A-C6DB-4552-80E2-57225D37A435}.Debug|x64.Build.0 = Debug|x64
+		{C5EB351A-C6DB-4552-80E2-57225D37A435}.Release|x64.ActiveCfg = Debug|x64
+		{C5EB351A-C6DB-4552-80E2-57225D37A435}.Release|x64.Build.0 = Debug|x64
+		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Debug|x64.ActiveCfg = Debug|x64
+		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Debug|x64.Build.0 = Debug|x64
+		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Release|x64.ActiveCfg = Debug|x64
+		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Release|x64.Build.0 = Debug|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DB94655-CD08-4F14-89B2-583E38E33617}
+	EndGlobalSection
+EndGlobal
