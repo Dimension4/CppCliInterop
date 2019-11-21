@@ -12,9 +12,9 @@ namespace Iridium.Ui
     public class ParameterInfo
     {
         public string Name { get; }
-        public Type Type { get; }
+        public string Type { get; }
 
-        public ParameterInfo(string name, Type type)
+        public ParameterInfo(string name, string type)
         {
             Name = name;
             Type = type;
@@ -35,9 +35,15 @@ namespace Iridium.Ui
             set => SetValue(value);
         }
 
-        public ReadOnlyObservableCollection<ParameterInfo> Parameters
+        public string ReturnType
         {
-            get => GetValue<ReadOnlyObservableCollection<ParameterInfo>>();
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
+
+        public ObservableCollection<ParameterInfo> Parameters
+        {
+            get => GetValue<ObservableCollection<ParameterInfo>>();
             set => SetValue(value);
         }
     }

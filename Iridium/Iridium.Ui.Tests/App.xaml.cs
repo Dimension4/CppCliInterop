@@ -27,39 +27,57 @@ namespace Iridium.Ui.Tests
                         {
                             Name = "Convolve",
                             Description = "Applies a convolution kernel to the image.",
-                            Parameters = new ReadOnlyObservableCollection<ParameterInfo>(
-                                new ObservableCollection<ParameterInfo>
-                                {
-                                    new ParameterInfo("width", typeof(int)),
-                                    new ParameterInfo("height", typeof(int)),
-                                    new ParameterInfo("kernel", typeof(float[,]))
-                                })
+                            Parameters = new ObservableCollection<ParameterInfo>
+                            {
+                                new ParameterInfo("image", "Image"),
+                                new ParameterInfo("width", "int"),
+                                new ParameterInfo("height", "int"),
+                                new ParameterInfo("kernel", "float[,]")
+                            },
+                            ReturnType = "Image"
                         },
                         new OperationTemplateViewModel
                         {
                             Name = "Erode",
                             Description = "Applies an erosion to the image.",
-                            Parameters = new ReadOnlyObservableCollection<ParameterInfo>(
-                                new ObservableCollection<ParameterInfo> {new ParameterInfo("size", typeof(int))})
+                            Parameters = new ObservableCollection<ParameterInfo>
+                            {
+                                new ParameterInfo("image", "Image"),
+                                new ParameterInfo("size", "int")
+                            },
+                            ReturnType = "Image"
                         },
                         new OperationTemplateViewModel
                         {
                             Name = "Dilate",
                             Description = "Applies a dilation to the image.",
-                            Parameters = new ReadOnlyObservableCollection<ParameterInfo>(
-                                new ObservableCollection<ParameterInfo> {new ParameterInfo("size", typeof(int))})
+                            Parameters = new ObservableCollection<ParameterInfo>
+                            {
+                                new ParameterInfo("image", "Image"),
+                                new ParameterInfo("size", "int")
+                            },
+                            ReturnType = "Image"
                         },
                         new OperationTemplateViewModel
                         {
                             Name = "Invert",
-                            Description = "Inverts the image"
+                            Description = "Inverts the image",
+                            Parameters = new ObservableCollection<ParameterInfo>
+                            {
+                                new ParameterInfo("image", "Image"),
+                            },
+                            ReturnType = "Image"
                         },
                         new OperationTemplateViewModel
                         {
                             Name = "Rotate",
                             Description = "Rotates the image",
-                            Parameters = new ReadOnlyObservableCollection<ParameterInfo>(
-                                new ObservableCollection<ParameterInfo> {new ParameterInfo("angle", typeof(float))})
+                            Parameters = new ObservableCollection<ParameterInfo>
+                            {
+                                new ParameterInfo("image", "Image"),
+                                new ParameterInfo("angle", "int")
+                            },
+                            ReturnType = "Image"
                         }
                     }
                 }

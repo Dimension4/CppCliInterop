@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace Iridium.Ui
 {
@@ -32,10 +33,48 @@ namespace Iridium.Ui
             get => (IridiumWindowViewModel) GetValue(IridiumWindowViewModelProperty);
             set => SetValue(IridiumWindowViewModelProperty, value);
         }
-      
+
+        private ImageSource _originalImage;
+
         public IridiumWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnApplyOperationClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Content is OperationTemplate operationTemplate)
+            {
+                var vm = operationTemplate.OperationTemplateViewModel;
+                var args = new OperationExecutionEventArgs(vm.Name, new object[] { IridiumWindowViewModel.Image });
+                IridiumWindowViewModel.RaiseExecuteOperation(args);
+
+                if (args.Result is ImageSource img)
+                {
+                    IridiumWindowViewModel.Image = img;
+                }
+            }
+        }
+
+        private void OnOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Multiselect = false,
+                Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff"
+            };
+
+            if (dialog.ShowDialog(this).GetValueOrDefault())
+            {
+                _originalImage = new BitmapImage(new Uri(dialog.FileName));
+                IridiumWindowViewModel.Image = _originalImage;
+            }
+        }
+
+        private void OnReset_Click(object sender, RoutedEventArgs e)
+        {
+            IridiumWindowViewModel.Image = _originalImage;
         }
     }
 }

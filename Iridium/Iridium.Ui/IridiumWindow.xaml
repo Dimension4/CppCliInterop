@@ -5,48 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Iridium.Ui"
         mc:Ignorable="d"
-        Title="IridiumWindow" Height="450" Width="800" d:DataContext="{d:DesignInstance local:IridiumWindowViewModel}"> 
+        Title="IridiumWindow" Height="450" Width="800" d:DataContext="{d:DesignInstance local:IridiumWindowViewModel}"
+        x:Name="Window">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Open" />
-            <MenuItem Header="Reset" />
+            <MenuItem Header="Open" Click="OnOpenFile_Click" />
+            <MenuItem Header="Reset" Click="OnReset_Click" />
         </Menu>
 
         <Grid Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="21*" />
+                <ColumnDefinition Width="504*"/>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="263*" />
             </Grid.ColumnDefinitions>
-            <GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="4" />
-            <Grid Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <GridSplitter Grid.Row="1" ResizeBehavior="PreviousAndNext" Height="4" HorizontalAlignment="Stretch" />
+            <Image Grid.Column="0" Source="{Binding Image, Mode=OneWay}" Grid.ColumnSpan="2" />
+            <GridSplitter Grid.Column="2" ResizeBehavior="PreviousAndNext" Width="4" />
+            <ScrollViewer Grid.Column="3" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding OperationTemplates}" Padding="2,0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Background="Transparent" Padding="2" Click="OnApplyOperationClick">
+                                <local:OperationTemplate OperationTemplateViewModel="{Binding Mode=OneWay}" />
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
 
-                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding OperationTemplates}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:OperationTemplate Margin="2" OperationTemplateViewModel="{Binding Mode=OneWay}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
-
-            </Grid>
         </Grid>
     </Grid>
 </Window>

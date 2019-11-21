@@ -8,30 +8,41 @@
              d:DesignHeight="100" d:DesignWidth="250"
              d:DataContext="{d:DesignInstance local:OperationTemplateViewModel}">
     <Border BorderThickness="1" BorderBrush="Silver" Padding="4">
-        <Grid >
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="14" />
-            <TextBlock Grid.Row="1" Text="{Binding Description}" />
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding Parameters}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="0,3,10,3">
-                            <TextBlock Text="{Binding Name, Mode=OneWay}" />
-                            <TextBlock Text=":" Margin="2,0" />
-                            <TextBlock Text="{Binding Type, Mode=OneWay}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <TextBlock Grid.Row="1" Text="{Binding Description}" Margin="0,0,0,5" />
+            <Line Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" StrokeThickness="1" Stretch="Fill" Stroke="#AAE0E0E0" X1="0" Y1="0" X2="1" Y2="0" />
+            <Grid Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="🠪" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding Parameters}" Margin="0,5">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                                <TextBlock Text=":" Margin="2,0" />
+                                <TextBlock Text="{Binding Type, Mode=OneWay}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+            <Line Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" StrokeThickness="1" Stretch="Fill" Stroke="#AAE0E0E0" X1="0" Y1="0" X2="1" Y2="0" />
+            <TextBlock Grid.Row="3" Text="{Binding ReturnType, StringFormat=🠨 {0}}" Margin="0,5,0,0"/>
         </Grid>
     </Border>
 </UserControl>

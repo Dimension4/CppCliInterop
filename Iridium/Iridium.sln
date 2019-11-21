@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iridium.Ui", "Iridium.Ui\Ir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iridium.Ui.Tests", "Iridium.Ui.Tests\Iridium.Ui.Tests.csproj", "{AD65BAB8-F07F-4377-B964-993CA0741EE2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Iridium.Interop", "Iridium.Interop\Iridium.Interop.vcxproj", "{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Iridium", "Iridium\Iridium.vcxproj", "{6CAB5903-8653-44EE-A0CB-C6C54C4704B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B} = {5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +28,14 @@ Global
 		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Debug|x64.Build.0 = Debug|x64
 		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Release|x64.ActiveCfg = Debug|x64
 		{AD65BAB8-F07F-4377-B964-993CA0741EE2}.Release|x64.Build.0 = Debug|x64
+		{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}.Debug|x64.ActiveCfg = Debug|x64
+		{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}.Debug|x64.Build.0 = Debug|x64
+		{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}.Release|x64.ActiveCfg = Release|x64
+		{5ED88C14-E7F2-4B1A-91AB-F86AC1996B8B}.Release|x64.Build.0 = Release|x64
+		{6CAB5903-8653-44EE-A0CB-C6C54C4704B1}.Debug|x64.ActiveCfg = Debug|x64
+		{6CAB5903-8653-44EE-A0CB-C6C54C4704B1}.Debug|x64.Build.0 = Debug|x64
+		{6CAB5903-8653-44EE-A0CB-C6C54C4704B1}.Release|x64.ActiveCfg = Release|x64
+		{6CAB5903-8653-44EE-A0CB-C6C54C4704B1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

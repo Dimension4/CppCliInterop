@@ -4,17 +4,44 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Iridium.Ui.Mvvm;
 
 namespace Iridium.Ui
 {
+    public class OperationExecutionEventArgs : EventArgs
+    {
+        public string Name { get; }
+        public object[] Arguments { get; }
+        public object Result { get; set; }
+
+        public OperationExecutionEventArgs(string name, object[] arguments)
+        {
+            Name = name;
+            Arguments = arguments;
+        }
+    }
+
     public class IridiumWindowViewModel : ViewModelBase
     {
+        public event EventHandler<OperationExecutionEventArgs> ExecuteOperation;
+
+        public ImageSource Image
+        {
+            get => GetValue<ImageSource>();
+            set => SetValue(value);
+        }
+
         [DefaultValueIsInstance]
         public ObservableCollection<OperationTemplateViewModel> OperationTemplates
         {
             get => GetValue<ObservableCollection<OperationTemplateViewModel>>();
             set => SetValue(value);
+        }
+
+        public void RaiseExecuteOperation(OperationExecutionEventArgs e)
+        {
+            ExecuteOperation?.Invoke(this, e);
         }
     }
 }
