@@ -34,7 +34,7 @@ namespace Iridium.Ui
             set => SetValue(IridiumWindowViewModelProperty, value);
         }
 
-        private ImageSource _originalImage;
+        private BitmapSource _originalImage;
 
         public IridiumWindow()
         {
@@ -49,7 +49,7 @@ namespace Iridium.Ui
                 var args = new OperationExecutionEventArgs(vm.Name, new object[] { IridiumWindowViewModel.Image });
                 IridiumWindowViewModel.RaiseExecuteOperation(args);
 
-                if (args.Result is ImageSource img)
+                if (args.Result is BitmapSource img)
                 {
                     IridiumWindowViewModel.Image = img;
                 }

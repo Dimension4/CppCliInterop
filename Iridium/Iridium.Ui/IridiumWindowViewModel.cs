@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Iridium.Ui.Mvvm;
 
 namespace Iridium.Ui
@@ -26,9 +27,9 @@ namespace Iridium.Ui
     {
         public event EventHandler<OperationExecutionEventArgs> ExecuteOperation;
 
-        public ImageSource Image
+        public BitmapSource Image
         {
-            get => GetValue<ImageSource>();
+            get => GetValue<BitmapSource>();
             set => SetValue(value);
         }
 

@@ -82,10 +82,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\iridium\Image.hpp" />
-    <ClInclude Include="include\iridium\interop\GCRoot.hpp" />
+    <ClInclude Include="include\iridium\interop\AppControllerProxy.hpp" />
+    <ClInclude Include="include\iridium\interop\ManagedMacros.hpp" />
     <ClInclude Include="include\iridium\interop\IridiumApplication.hpp" />
     <ClInclude Include="include\iridium\interop\LambdaWrapper.hpp" />
-    <ClInclude Include="include\iridium\interop\WpfApplicationWrapper.hpp" />
+    <ClInclude Include="include\iridium\interop\ApplicationProxy.hpp" />
     <ClInclude Include="include\iridium\IridiumInteropApi.hpp" />
     <ClInclude Include="include\iridium\OperationTemplate.hpp" />
     <ClInclude Include="Resource.h" />

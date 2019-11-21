@@ -23,13 +23,6 @@ namespace ir::interop
                 delete m_func;
             }
 
-            // this one may not work ^.-
-            template <typename TReturn, typename... TArgs, typename = std::void_t<decltype(std::forward<TArgs>(std::declval<TArgs>()))...>>
-            TReturn Call(TArgs&&... args)
-            {
-                return (*m_func)(std::forward<TArgs>(args)...);
-            }
-
             template <typename TReturn, typename... TArgs>
             TReturn Call(TArgs... args)
             {
@@ -75,8 +68,8 @@ namespace ir::interop
     }
 
     template <typename TDelegate, typename TLambda>
-    TDelegate CreateDelegate(TLambda&& lambda)
+    TDelegate^ CreateDelegate(TLambda&& lambda)
     {
-        return internal::CreateDelegateHelper<TDelegate>(std::forward<TLambda>(lambda), &TLambda::operator());
+        return internal::CreateDelegate<TDelegate>(std::forward<TLambda>(lambda), &TLambda::operator());
     }
 }

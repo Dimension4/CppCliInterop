@@ -1,37 +1,49 @@
 ﻿#pragma once
 
+#include "LambdaWrapper.hpp"
+
+#include <utility>
+#include <type_traits>
+
 namespace ir::interop
 {
     using namespace System;
     using namespace System::Windows;
     using namespace System::Threading;
     using namespace Iridium::Ui;
-    
-    private ref class WpfApplicationWrapper
+
+    private ref class ApplicationProxy
     {
     public:
         property IridiumWindowViewModel^ MainViewModel
         {
             IridiumWindowViewModel^ get() { return m_viewModel; }
-        };
-        
-        void Run()
+        }
+
+        property bool HasStopped 
         {
-            if (m_uiThread != nullptr && m_uiThread->IsAlive)
-                throw gcnew InvalidOperationException("Application is already running.");
+            bool get() { return m_exitSignal->IsSet; }
+        }
 
-            if (m_exitSignal->IsSet)
-                throw gcnew InvalidOperationException("Application has already shutdown.");
-
-            m_uiThread = gcnew Thread(gcnew ThreadStart(this, &WpfApplicationWrapper::RunApp));
-            m_uiThread->SetApartmentState(ApartmentState::STA);
-            m_uiThread->Start();
-            m_startupSignal->Wait();
+        static ApplicationProxy^ Run()
+        {
+            return gcnew ApplicationProxy();
         }
 
         void WaitExit()
         {
             m_exitSignal->Wait();
+        }
+
+        void Exit()
+        {
+            Exit(0);
+        }
+
+        void Exit(int exitCode)
+        {
+            m_app->Shutdown(exitCode);
+            WaitExit();
         }
 
         void ShowWindow()
@@ -44,13 +56,31 @@ namespace ir::interop
             m_app->Dispatcher->Invoke(gcnew Action(m_window, &IridiumWindow::Hide));
         }
 
+        template <typename F>
+        std::invoke_result_t<F> DispatcherInvoke(F&& func)
+        {
+            using result_t = std::invoke_result_t<F>;
+
+            if constexpr (std::is_same_v<result_t, void>)
+                m_app->Dispatcher->Invoke(CreateDelegate<Action>(std::forward<F>(func)));
+            else
+                return m_app->Dispatcher->Invoke(CreateDelegate<Func<result_t>>(std::forward<F>(func)));
+        }
+
     private:
         Application^ m_app;
         IridiumWindow^ m_window;
-        IridiumWindowViewModel^ m_viewModel;
-        Thread^ m_uiThread;
+        IridiumWindowViewModel^ m_viewModel = gcnew IridiumWindowViewModel();
+        Thread^ m_uiThread = gcnew Thread(gcnew ThreadStart(this, &ApplicationProxy::RunApp));
         ManualResetEventSlim^ m_exitSignal = gcnew ManualResetEventSlim();
         ManualResetEventSlim^ m_startupSignal = gcnew ManualResetEventSlim();
+
+        ApplicationProxy()
+        {
+            m_uiThread->SetApartmentState(ApartmentState::STA);
+            m_uiThread->Start();
+            m_startupSignal->Wait();
+        }
 
         void OnStartup(Object^ sender, StartupEventArgs^ args)
         {
@@ -65,7 +95,7 @@ namespace ir::interop
         void RunApp()
         {
             m_app = gcnew Application();
-            m_app->Startup += gcnew StartupEventHandler(this, &WpfApplicationWrapper::OnStartup);
+            m_app->Startup += gcnew StartupEventHandler(this, &ApplicationProxy::OnStartup);
             m_app->Run();
             m_exitSignal->Set();
         }

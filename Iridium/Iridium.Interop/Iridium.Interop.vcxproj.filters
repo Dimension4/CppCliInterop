@@ -27,16 +27,19 @@
     <ClInclude Include="include\iridium\OperationTemplate.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iridium\interop\GCRoot.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\iridium\IridiumInteropApi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iridium\interop\WpfApplicationWrapper.hpp">
+    <ClInclude Include="include\iridium\interop\LambdaWrapper.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iridium\interop\LambdaWrapper.hpp">
+    <ClInclude Include="include\iridium\interop\ManagedMacros.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iridium\interop\AppControllerProxy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iridium\interop\ApplicationProxy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
