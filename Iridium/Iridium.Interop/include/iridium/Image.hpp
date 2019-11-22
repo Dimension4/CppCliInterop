@@ -7,9 +7,10 @@ namespace ir
 {
     enum class ImageType
     {
-        RGB,
-        BGR,
-        Gray
+        RGB24,
+        BGR24,
+        BGR32,
+        GRAY8
     };
 
     struct Image
@@ -18,7 +19,7 @@ namespace ir
         int height = 0;
         int stride = 0;
         int bitsPerPixel = 0;
-        ImageType type = ImageType::RGB;
+        ImageType type = ImageType::RGB24;
         std::vector<std::uint8_t> data;
     };
 }
@@ -38,13 +39,17 @@ namespace msclr::interop
         using namespace Windows::Media;
 
         Image outImg = {from->PixelWidth, from->PixelHeight};
-
+        auto fmt = from->Format;
         if (from->Format == PixelFormats::Rgb24)
-            outImg.type = ImageType::RGB;
+            outImg.type = ImageType::RGB24;
         else if (from->Format == PixelFormats::Bgr24)
-            outImg.type = ImageType::BGR;
+            outImg.type = ImageType::BGR24;
+        else if (from->Format == PixelFormats::Bgr32)
+            outImg.type = ImageType::BGR32;
         else if (from->Format == PixelFormats::Gray8)
-            outImg.type = ImageType::Gray;
+            outImg.type = ImageType::GRAY8;
+        else
+            throw gcnew NotSupportedException("The pixel format of the given image is not supported.");
 
         outImg.bitsPerPixel = from->Format.BitsPerPixel;
         outImg.stride = ((outImg.width * outImg.bitsPerPixel + 31) / 32) * 4;
@@ -65,11 +70,13 @@ namespace msclr::interop
 
         PixelFormat fmt;
 
-        if (from.type == ImageType::BGR)
+        if (from.type == ImageType::BGR24)
             fmt = PixelFormats::Bgr24;
-        else if (from.type == ImageType::RGB)
+        else if (from.type == ImageType::BGR32)
+            fmt = PixelFormats::Bgr32;
+        else if (from.type == ImageType::RGB24)
             fmt = PixelFormats::Rgb24;
-        else if (from.type == ImageType::Gray)
+        else if (from.type == ImageType::GRAY8)
             fmt = PixelFormats::Gray8;
 
         return BitmapSource::Create(from.width, from.height, 96, 96, fmt, nullptr,
