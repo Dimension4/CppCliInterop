@@ -21,6 +21,11 @@ namespace ir
         int bitsPerPixel = 0;
         ImageType type = ImageType::RGB24;
         std::vector<std::uint8_t> data;
+
+        operator bool() const noexcept
+        {
+            return !data.empty();
+        }
     };
 }
 
@@ -37,6 +42,9 @@ namespace msclr::interop
         using namespace System;
         using namespace Windows;
         using namespace Windows::Media;
+
+        if (from == nullptr)
+            return {};
 
         Image outImg = {from->PixelWidth, from->PixelHeight};
         auto fmt = from->Format;

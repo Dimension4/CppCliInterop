@@ -42,7 +42,7 @@ namespace ir::interop
 
         void Exit(int exitCode)
         {
-            m_app->Shutdown(exitCode);
+            m_app->Dispatcher->Invoke(gcnew Action<int>(m_app, &Application::Shutdown), exitCode);
             WaitExit();
         }
 

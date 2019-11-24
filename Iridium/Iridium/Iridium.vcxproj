@@ -78,12 +78,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CommandParser.cpp" />
+    <ClCompile Include="src\Commands.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Iridium.Interop\Iridium.Interop.vcxproj">
       <Project>{5ed88c14-e7f2-4b1a-91ab-f86ac1996b8b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\iridium\CommandParser.hpp" />
+    <ClInclude Include="include\iridium\Commands.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -29,7 +29,7 @@ namespace ir
             IRIDIUM_INTEROP_API void exit(int exitCode = 0) const noexcept;
             IRIDIUM_INTEROP_API void showWindow() const noexcept;
             IRIDIUM_INTEROP_API void hideWindow() const noexcept;
-            IRIDIUM_INTEROP_API bool hasStopped() const noexcept;
+            IRIDIUM_INTEROP_API bool hasExited() const noexcept;
 
             IRIDIUM_INTEROP_API std::vector<OperationTemplate> getOperationTemplates() const;
             IRIDIUM_INTEROP_API void setOperationTemplates(std::vector<OperationTemplate> const& operationTemplates) const;

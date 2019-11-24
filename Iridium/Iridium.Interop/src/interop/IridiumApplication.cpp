@@ -24,7 +24,7 @@ namespace ir::interop
 
     IridiumApplication::~IridiumApplication() noexcept
     {
-        if (static_cast<ApplicationProxy^>(m_app) != nullptr && !hasStopped())
+        if (static_cast<ApplicationProxy^>(m_app) != nullptr && !hasExited())
             exit();
     }
 
@@ -65,7 +65,7 @@ namespace ir::interop
         m_app->HideWindow();
     }
 
-    bool IridiumApplication::hasStopped() const noexcept
+    bool IridiumApplication::hasExited() const noexcept
     {
         return m_app->HasStopped;
     }
