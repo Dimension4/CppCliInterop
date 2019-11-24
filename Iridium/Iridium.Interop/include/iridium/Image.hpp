@@ -78,7 +78,9 @@ namespace msclr::interop
             fmt = PixelFormats::Rgb24;
         else if (from.type == ImageType::GRAY8)
             fmt = PixelFormats::Gray8;
-
+		else 
+			throw gcnew NotImplementedException("Whoops. Forgot that one!");
+		
         return BitmapSource::Create(from.width, from.height, 96, 96, fmt, nullptr,
                                     IntPtr(const_cast<std::uint8_t*>(from.data.data())), 
                                     from.data.size(), from.stride);
