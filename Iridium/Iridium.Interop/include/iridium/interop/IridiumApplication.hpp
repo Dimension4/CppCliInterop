@@ -4,6 +4,7 @@
 #include "ManagedMacros.hpp"
 
 #include <vector>
+#include <functional>
 #include <string_view>
 
 namespace ir
@@ -18,6 +19,8 @@ namespace ir
         class IridiumApplication
         {
         public:
+            using ExecuteOperationCallback = std::function<void(std::string const&)>;
+
             IRIDIUM_INTEROP_API IridiumApplication(IridiumApplication const&) = delete;
             IRIDIUM_INTEROP_API IridiumApplication& operator=(IridiumApplication const&) = delete;
             IRIDIUM_INTEROP_API IridiumApplication(IridiumApplication&& other) noexcept;
@@ -30,6 +33,8 @@ namespace ir
             IRIDIUM_INTEROP_API void showWindow() const noexcept;
             IRIDIUM_INTEROP_API void hideWindow() const noexcept;
             IRIDIUM_INTEROP_API bool hasExited() const noexcept;
+            IRIDIUM_INTEROP_API ExecuteOperationCallback& onExecuteOperation();
+            IRIDIUM_INTEROP_API ExecuteOperationCallback const& onExecuteOperation() const;
 
             IRIDIUM_INTEROP_API std::vector<OperationTemplate> getOperationTemplates() const;
             IRIDIUM_INTEROP_API void setOperationTemplates(std::vector<OperationTemplate> const& operationTemplates) const;
@@ -43,6 +48,7 @@ namespace ir
             IridiumApplication();
 
             GCROOT(ApplicationProxy^) m_app;
+            ExecuteOperationCallback m_onExecuteOperation;
         };
     }
 }

@@ -126,9 +126,14 @@ namespace ir::commands
         constexpr auto ok = std::errc{};
 
         int exitCode = 0;
-        if (args.size() > 1 ||
-            !args.empty() && std::from_chars(args[0].data(), args[0].data() + args[0].length(), exitCode).ec != ok)
-            return CommandResult::InvalidArguments;
+        
+        if (args.size() == 1)
+        {
+            if (args[0] == "wait")
+                return CommandResult::Exit;
+            else if (std::from_chars(args[0].data(), args[0].data() + args[0].length(), exitCode).ec != ok)
+                return CommandResult::InvalidArguments;
+        }
 
         app.exit(exitCode);
         return CommandResult::ExitNoWait;

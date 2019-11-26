@@ -4,6 +4,7 @@
 #include <iridium/Image.hpp>
 
 #include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>
 
 #include <utility>
 
@@ -20,6 +21,15 @@ namespace ir::interop
     IridiumApplication::IridiumApplication()
     {
         m_app = ApplicationProxy::Run();
+        m_app->MainViewModel->ExecuteOperation += CreateDelegate<EventHandler<OperationExecutionEventArgs^>>(
+            [&](Object^ sender, OperationExecutionEventArgs^ args) 
+            {                
+                if (m_onExecuteOperation)
+                { 
+                    auto name = marshal_as<std::string>(args->Name);
+                    m_onExecuteOperation(name);
+                }
+            });
     }
 
     IridiumApplication::~IridiumApplication() noexcept
@@ -103,5 +113,15 @@ namespace ir::interop
     void IridiumApplication::setImage(std::uint8_t const* img, int width, int height, int stride) const
     {
 
+    }
+
+    IridiumApplication::ExecuteOperationCallback& IridiumApplication::onExecuteOperation()
+    {
+        return m_onExecuteOperation;
+    }
+
+    IridiumApplication::ExecuteOperationCallback const& IridiumApplication::onExecuteOperation() const
+    {
+        return m_onExecuteOperation;
     }
 }

@@ -15,7 +15,9 @@ using ir::commands::CommandResult;
 
 int main()
 {
-    auto app = ir::interop::IridiumApplication::run();
+    auto app = IridiumApplication::run();
+    app.onExecuteOperation() = [](auto const& name) { std::cout << "Execute that \"" << name << "\" operation!\n"; };
+
     auto const& commands = commands::getCommands();
 
     std::cout << "Enter a command to execute (type \"help\" for help).\n\n";

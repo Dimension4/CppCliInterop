@@ -5,35 +5,37 @@
 
 namespace ir::interop
 {
+    template <typename TFunc>
+    ref class LambdaWrapper
+    {
+    public:
+        LambdaWrapper(TFunc&& lambda) : m_func(new TFunc(std::move(lambda))) {}
+
+        ~LambdaWrapper()
+        {
+            this->!LambdaWrapper();
+        }
+
+        !LambdaWrapper()
+        {
+            delete m_func;
+        }
+
+        // todo: add forwarding overload for unmanaged params
+
+        template <typename TReturn, typename... TArgs>
+        TReturn Call(TArgs... args)
+        {
+            return (*m_func)(args...);
+        }
+
+    private:
+        TFunc* m_func;
+    };
+
+
     namespace internal
     {
-        template <typename TFunc>
-        ref class LambdaWrapper
-        {
-        public:
-            LambdaWrapper(TFunc&& lambda) : m_func(new TFunc(std::move(lambda))) {}
-
-            ~LambdaWrapper()
-            {
-                this->!LambdaWrapper();
-            }
-
-            !LambdaWrapper()
-            {
-                delete m_func;
-            }
-
-            template <typename TReturn, typename... TArgs>
-            TReturn Call(TArgs&&... args)
-            {
-                return (*m_func)(std::forward<TArgs>(args)...);
-            }
-
-        private:
-            TFunc* m_func;
-        };
-
-
         //Support for mutable lambdas
 
         template <typename TDelegate, typename TFunc, typename TReturn, typename... TArgs>
@@ -78,7 +80,7 @@ namespace ir::interop
     template <typename TFunc, typename TWrapped = std::invoke_result_t<TFunc>>
     auto WrapReturnValue(TFunc&& func, TWrapped& returnValue)
     {
-        return [f = std::forward<TFunc>(func), &returnValue]()
+        return[f = std::forward<TFunc>(func), &returnValue]()
         {
             returnValue = f();
         };
