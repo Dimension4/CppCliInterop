@@ -60,7 +60,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;IRIDIUM_INTEROP_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)managed;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;IRIDIUM_INTEROP_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)managed;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -85,10 +85,10 @@
     <ClInclude Include="include\iridium\interop\AppControllerProxy.hpp" />
     <ClInclude Include="include\iridium\interop\ManagedMacros.hpp" />
     <ClInclude Include="include\iridium\interop\IridiumApplication.hpp" />
-    <ClInclude Include="include\iridium\interop\LambdaWrapper.hpp" />
-    <ClInclude Include="include\iridium\interop\ApplicationProxy.hpp" />
     <ClInclude Include="include\iridium\IridiumInteropApi.hpp" />
     <ClInclude Include="include\iridium\OperationTemplate.hpp" />
+    <ClInclude Include="managed\iridium\interop\ApplicationProxy.hpp" />
+    <ClInclude Include="managed\iridium\interop\LambdaWrapper.hpp" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>

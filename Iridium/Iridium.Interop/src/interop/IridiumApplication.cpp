@@ -1,7 +1,7 @@
 ﻿#include <iridium/interop/IridiumApplication.hpp>
 #include <iridium/interop/ApplicationProxy.hpp>
-#include <iridium/Image.hpp>
 #include <iridium/OperationTemplate.hpp>
+#include <iridium/Image.hpp>
 
 #include <msclr/marshal.h>
 
@@ -92,9 +92,7 @@ namespace ir::interop
 
     Image IridiumApplication::getImage() const
     {
-        Image img;
-        m_app->DispatcherInvoke([&]() { img = marshal_as<Image>(m_app->MainViewModel->Image); });
-        return img;
+        return m_app->DispatcherInvoke([&]() { return marshal_as<Image>(m_app->MainViewModel->Image); });
     }
 
     void IridiumApplication::setImage(Image const& img) const

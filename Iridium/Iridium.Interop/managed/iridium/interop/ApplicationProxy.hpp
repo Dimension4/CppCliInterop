@@ -56,15 +56,22 @@ namespace ir::interop
             m_app->Dispatcher->Invoke(gcnew Action(m_window, &IridiumWindow::Hide));
         }
 
-        template <typename F>
-        std::invoke_result_t<F> DispatcherInvoke(F&& func)
+        template <typename TFunc>
+        std::invoke_result_t<TFunc> DispatcherInvoke(TFunc&& func)
         {
-            using result_t = std::invoke_result_t<F>;
+            using result_t = std::invoke_result_t<TFunc>;
 
             if constexpr (std::is_same_v<result_t, void>)
-                m_app->Dispatcher->Invoke(CreateDelegate<Action>(std::forward<F>(func)));
+            {
+                m_app->Dispatcher->Invoke(CreateDelegate<Action>(std::forward<TFunc>(func)));
+            }
             else
-                return m_app->Dispatcher->Invoke(CreateDelegate<Func<result_t>>(std::forward<F>(func)));
+            {
+                result_t returnVal;
+                auto wrappedFunc = WrapReturnValue(func, returnVal);
+                m_app->Dispatcher->Invoke(CreateDelegate<Action>(std::forward<decltype(wrappedFunc)>(wrappedFunc)));
+                return returnVal;
+            }
         }
 
     private:
