@@ -22,7 +22,7 @@ int main()
 
     std::string input;
 
-    while (std::getline(std::cin, input) && !app.hasExited())
+    while (!app.hasExited() && std::getline(std::cin, input))
     {
         auto parsedInput = parseCommand(input);
 
